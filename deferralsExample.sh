@@ -71,6 +71,8 @@ deadlineDate=""
 # for the system.
 deferralPlist="com.bigmacadmin.deferralexample.plist"
 
+X=849881645872
+
 #################################
 # User Configuration Functions  #
 #################################
@@ -86,7 +88,9 @@ function check_the_things()
 
     # For our example, we'll use "If true" which always returns true (or exit code zero) Change to "if false" for 
     # testing the opposite.
-    if true; then
+    freespace=$(diskspace --opportunistic)
+    log_message $freespace
+    if [ "$freespace" -lt "$X" ]; then
         log_message "Conditions met. Script will continue"
     else
         cleanup_and_exit 0 "Script is not needed. Exiting"
@@ -99,7 +103,14 @@ function do_the_things()
     # clicking "OK" on the Dialog window
 
     # For our example, we'll just use "true". To test behavior on function failure, change to "false".
-    true
+    mac_version=$(sw_vers -productVersion | awk '{print int($NF)}')
+
+    if [ "$mac_version" -eq "13" ]; then
+        log_message "Running macOS Ventura, opening system settings"
+
+    else
+        log_message "Running macOS Monterey or older, opening Storage Management.app"
+    fi
 
     # Since we did the things, we'll set the deferral count back to 0.
     # You may want to move this elsewhere in the script, or do things differently. For our example, it makes sense
@@ -111,10 +122,11 @@ function dialog_prompt_with_deferral()
 {
     # This is where we define the dialog window options asking the user if they want to do the thing.
     "$dialogPath" \
-    --title "Please do the thing" \
-    --message "Hey, we need you to do the thing. Is this an ok time? If not, we'll bug you again later." \
+    --title "You're running out of space!" \
+    --message "Please delete some files to make space for important updates." \
     --icon "SF=bolt.circle color1=pink color2=blue" \
-    --button2text "Not Now"
+    --button2text "Not Now" \
+    --infobuttontext "Contact IT Support" \
 }
 
 function dialog_prompt_no_deferral()
