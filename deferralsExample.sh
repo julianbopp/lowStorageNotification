@@ -86,6 +86,7 @@ function check_the_things()
 
     # For our example, we'll use "If true" which always returns true (or exit code zero) Change to "if false" for 
     # testing the opposite.
+
     cd "$(dirname "$0")"
     freespace=$(./freespace)
 
@@ -139,10 +140,16 @@ function dialog_prompt_no_deferral()
 {
     # This is where we define the dialog window options when we're no longer offering deferrals. "Aggressive mode" 
     # so to speak.
+    #"$dialogPath" \
+    #--title "We must now do the thing" \
+    #--message "Hey, we can't put off the thing any longer. It's going to be done now." \
+    #--icon "SF=bolt.circle color1=pink color2=blue" \
     "$dialogPath" \
-    --title "We must now do the thing" \
-    --message "Hey, we can't put off the thing any longer. It's going to be done now." \
+    --title "You're running out of space!" \
+    --message "Delete some files to make space for important updates. Closing this window will open your storage settings." \
     --icon "SF=bolt.circle color1=pink color2=blue" \
+    --infobuttontext "Contact IT Support" \
+    --infobuttonaction "mailto:its-support@unibas.ch?subject=Storage%20is%20running%20low"
 }
 
 ##################
