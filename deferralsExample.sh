@@ -106,7 +106,8 @@ function do_the_things()
     mac_version=$(sw_vers -productVersion | awk '{print int($NF)}')
 
     if [ "$mac_version" -eq "13" ]; then
-        log_message "Running macOS Ventura, opening system settings"
+        log_message "Running macOS Ventura, opening system settings" 
+        open "x-apple.systempreferences:com.apple.settings.Storage"
 
     else
         log_message "Running macOS Monterey or older, opening Storage Management.app"
