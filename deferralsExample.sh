@@ -71,8 +71,6 @@ deadlineDate=""
 # for the system.
 deferralPlist="com.bigmacadmin.deferralexample.plist"
 
-X=849881645872
-
 #################################
 # User Configuration Functions  #
 #################################
@@ -88,9 +86,14 @@ function check_the_things()
 
     # For our example, we'll use "If true" which always returns true (or exit code zero) Change to "if false" for 
     # testing the opposite.
-    freespace=$(diskspace --opportunistic)
+    cd "$(dirname "$0")"
+    freespace=$(./freespace)
+
+    # Specify the space required to not have to take action in bytes
+    requiredspace=$((800 * 1000000000))
+
     log_message $freespace
-    if [ "$freespace" -lt "$X" ]; then
+    if [ "$freespace" -lt "$requiredspace" ]; then
         log_message "Conditions met. Script will continue"
     else
         cleanup_and_exit 0 "Script is not needed. Exiting"
