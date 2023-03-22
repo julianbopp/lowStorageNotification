@@ -110,6 +110,7 @@ function do_the_things()
 
     else
         log_message "Running macOS Monterey or older, opening Storage Management.app"
+        open -a "Storage Management"
     fi
 
     # Since we did the things, we'll set the deferral count back to 0.
