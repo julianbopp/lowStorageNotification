@@ -1,6 +1,5 @@
-# swiftDialogExamples
-
-This repository contains example scripts to show off the various features of [SwiftDialog](https://github.com/bartreardon/swiftDialog)
+## lowStorageNotification.sh
+Specify the amount of free space required to **not** take any action in `requiredspace`.
 
 ## checklistJSONexample.sh
 An example of how to generate checklists using JSON data and parse the output all in shell.
