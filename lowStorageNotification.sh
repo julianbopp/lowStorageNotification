@@ -113,9 +113,11 @@ function do_the_things()
     # This is where you put the actual action you want the script to take. This is executed when the user consents by 
     # clicking "OK" on the Dialog window
 
-    # For our example, we'll just use "true". To test behavior on function failure, change to "false".
+    # Get macOS version installed
     mac_version=$(sw_vers -productVersion | awk '{print int($NF)}')
 
+        
+    # Do different actions based on macOS version
     if [ "$mac_version" -eq "13" ]; then
         log_message "Running macOS Ventura, opening system settings" 
         open "x-apple.systempreferences:com.apple.settings.Storage"
