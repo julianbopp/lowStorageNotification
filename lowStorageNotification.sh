@@ -150,7 +150,7 @@ function dialog_prompt_with_deferral()
         --icon "SF=bolt.circle color1=pink color2=blue" \
         --button2text "Nicht jetzt" \
         --infobuttontext "Kontaktiere IT Support" \
-        --infobuttonaction "mailto:its-support@unibas.ch?subject=Storage%20is%20running%20low"
+        --infobuttonaction "https://its.unibas.ch/de/beratung-hilfe/service-desk/"
     else 
         log_message "Using en locale."
         "$dialogPath" \
@@ -159,7 +159,7 @@ function dialog_prompt_with_deferral()
         --icon "SF=bolt.circle color1=pink color2=blue" \
         --button2text "Not Now" \
         --infobuttontext "Contact IT Support" \
-        --infobuttonaction "mailto:its-support@unibas.ch?subject=Storage%20is%20running%20low"
+        --infobuttonaction "https://its.unibas.ch/en/advice-and-help/service-desk/"
     fi
 }
 
