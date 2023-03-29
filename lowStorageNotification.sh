@@ -92,7 +92,7 @@ function check_the_things()
     freespace=$(./freespace)
 
     # Specify space bound for aggresive popup
-    aggresive=$((800 * 1000000000))
+    aggresive=$((700 * 1000000000))
     # Specify space bound for passive notification in notification center
     passive=$((800 * 1000000000))
 
@@ -102,12 +102,29 @@ function check_the_things()
         log_message "Conditions for aggresive measures met. Script will continue"
     elif [ "$freespace" -lt "$passive" ]; then
         log_message "Conditions for passive measures met. Display alert in notification center."
-        osascript -e 'display notification "Lorem ipsum dolor sit amet" with title "Title"'
-        cleanup_and_exit 0 "Popup is not needed. Exiting"
+        passive_notification
     else 
         cleanup_and_exit 0 "Popup is not needed. Exiting"
     fi
 }
+
+function passive_notification()
+{
+    # https://developer.apple.com/library/archive/documentation/LanguagesUtilities/Conceptual/MacAutomationScriptingGuide/DisplayNotifications.html
+    # Is user using en or de locale? Use english as default
+    userlang=$(defaults read -g AppleLocale) 
+    userlang=${userlang:0:2}
+
+    # Display popup with title and description
+    if [ "$userlang" = "de" ]; then
+        osascript -e 'display notification "Möglicherweise bald nicht genug Speicher für wichtige Systemupdates" with title "Speicher fast voll"'
+    else
+        # english version
+        osascript -e 'display notification "Soon there might be not enough space for important system updates" with title "Space is running low"'
+    fi
+        cleanup_and_exit 0 "Popup is not needed. Exiting"
+}
+
 
 function do_the_things()
 {
