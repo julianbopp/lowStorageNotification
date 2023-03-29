@@ -146,6 +146,15 @@ function do_the_things()
 function dialog_prompt_with_deferral()
 {
     # This is where we define the dialog window options asking the user if they want to do the thing.
+    if [ "$userlang" -eq "de" ]; then
+    "$dialogPath" \
+    --title "Dein Festplattenspeicher ist fast voll!" \
+    --message "Bitte gebe etwas Speicher frei. Wenn du auf 'OK' drückst öffnen sich deine Speichereinstellunge." \
+    --icon "SF=bolt.circle color1=pink color2=blue" \
+    --button2text "Nicht jetzt" \
+    --infobuttontext "Kontaktiere IT Support" \
+    --infobuttonaction "mailto:its-support@unibas.ch?subject=Storage%20is%20running%20low"
+    fi
     "$dialogPath" \
     --title "You're running out of space!" \
     --message "Please delete some files to make space for important updates. Clicking 'OK' will open your storage settings." \
