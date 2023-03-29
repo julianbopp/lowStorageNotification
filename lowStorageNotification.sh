@@ -91,7 +91,7 @@ function check_the_things()
     freespace=$(./freespace)
 
     # Specify space bound for aggresive popup
-    aggresive=$((700 * 1000000000))
+    aggresive=$((800 * 1000000000))
     # Specify space bound for passive notification in notification center
     passive=$((800 * 1000000000))
 
@@ -112,6 +112,17 @@ function do_the_things()
 {
     # This is where you put the actual action you want the script to take. This is executed when the user consents by 
     # clicking "OK" on the Dialog window
+
+    # Is user using en or de locale? Use english as default
+    userlang=$(defaults read -g AppleLocale) 
+    userlang=${userlang:0:2}
+    echo $userlang
+
+    if [ "$userlang" -eq "de"]; then
+        log_message "Using de locale."
+    else
+        log_message "Using en locale."
+    fi
 
     # Get macOS version installed
     mac_version=$(sw_vers -productVersion | awk '{print int($NF)}')
