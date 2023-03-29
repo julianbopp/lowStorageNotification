@@ -90,14 +90,21 @@ function check_the_things()
     cd "$(dirname "$0")"
     freespace=$(./freespace)
 
-    # Specify the space required to not have to take action in bytes
-    requiredspace=$((800 * 1000000000))
+    # Specify space bound for aggresive popup
+    aggresive=$((700 * 1000000000))
+    # Specify space bound for passive notification in notification center
+    passive=$((800 * 1000000000))
+
 
     log_message $freespace
-    if [ "$freespace" -lt "$requiredspace" ]; then
-        log_message "Conditions met. Script will continue"
-    else
-        cleanup_and_exit 0 "Script is not needed. Exiting"
+    if [ "$freespace" -lt "$aggresive" ]; then
+        log_message "Conditions for aggresive measures met. Script will continue"
+    elif [ "$freespace" -lt "$passive" ]; then
+        log_message "Conditions for passive measures met. Display alert in notification center."
+        osascript -e 'display notification "Lorem ipsum dolor sit amet" with title "Title"'
+        cleanup_and_exit 0 "Popup is not needed. Exiting"
+    else 
+        cleanup_and_exit 0 "Popup is not needed. Exiting"
     fi
 }
 
