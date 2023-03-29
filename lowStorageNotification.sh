@@ -115,7 +115,6 @@ function do_the_things()
 
     # Get macOS version installed
     mac_version=$(sw_vers -productVersion | awk '{print int($NF)}')
-
         
     # Do different actions based on macOS version
     if [ "$mac_version" -eq "13" ]; then
