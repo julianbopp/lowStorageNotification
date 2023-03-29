@@ -161,6 +161,7 @@ function dialog_prompt_with_deferral()
     if [ "$userlang" = "de" ]; then
         log_message "Using de locale."
         "$dialogPath" \
+        --icon logo.png \
         --title "Dein Festplattenspeicher ist fast voll!" \
         --message "Bitte gebe etwas Speicher frei. Wenn du auf 'OK' drückst öffnen sich deine Speichereinstellungen." \
         --icon "SF=bolt.circle color1=pink color2=blue" \
@@ -170,6 +171,7 @@ function dialog_prompt_with_deferral()
     else 
         log_message "Using en locale."
         "$dialogPath" \
+        --icon logo.png
         --title "You're running out of space!" \
         --message "Please delete some files to make space for important updates. Clicking 'OK' will open your storage settings." \
         --icon "SF=bolt.circle color1=pink color2=blue" \
