@@ -86,6 +86,17 @@ function check_the_things()
 
     # For our example, we'll use "If true" which always returns true (or exit code zero) Change to "if false" for 
     # testing the opposite.
+    
+    # Is user using en or de locale? Use english as default
+    userlang=$(defaults read -g AppleLocale) 
+    userlang=${userlang:0:2}
+    echo $userlang
+
+    if [ "$userlang" -eq "de"]; then
+        log_message "Using de locale."
+    else
+        log_message "Using en locale."
+    fi
 
     cd "$(dirname "$0")"
     freespace=$(./freespace)
@@ -112,17 +123,6 @@ function do_the_things()
 {
     # This is where you put the actual action you want the script to take. This is executed when the user consents by 
     # clicking "OK" on the Dialog window
-
-    # Is user using en or de locale? Use english as default
-    userlang=$(defaults read -g AppleLocale) 
-    userlang=${userlang:0:2}
-    echo $userlang
-
-    if [ "$userlang" -eq "de"]; then
-        log_message "Using de locale."
-    else
-        log_message "Using en locale."
-    fi
 
     # Get macOS version installed
     mac_version=$(sw_vers -productVersion | awk '{print int($NF)}')
